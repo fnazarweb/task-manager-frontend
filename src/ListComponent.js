@@ -2,17 +2,18 @@ import { useState } from "react";
 
 import ListItemComponent from "./ListItemComponent";
 
-const ListComponent = () => {
+const ListComponent = (props) => {
   const [input, setInput] = useState("");
-  const [item, setItem] = useState([]);
-  const [itemNumber, setItemNumber] = useState(0);
+  const [todoList, setTodoList] = useState(props.todoList);
 
   const onClickHandler = (input) => {
     if (input) {
-      const updatedElement = [...item, input];
-      setItem(updatedElement);
+      const updatedElement = [
+        ...todoList,
+        { id: crypto.randomUUID(), name: input },
+      ];
+      setTodoList(updatedElement);
       setInput("");
-      setItemNumber(itemNumber + 1);
     }
   };
   const onChangeHandler = (e) => {
@@ -26,6 +27,11 @@ const ListComponent = () => {
     }
   };
 
+  const onDeleteHandler = (e) => {
+    const updatedTodoList = todoList.filter((item) => item.id !== e.target.id);
+    setTodoList(updatedTodoList);
+  };
+
   return (
     <>
       <input
@@ -35,10 +41,15 @@ const ListComponent = () => {
         value={input}
       />
 
-      <p>{itemNumber}</p>
+      <p>{todoList.length}</p>
       <ul>
-        {item.map((el, index) => (
-          <ListItemComponent el={el} key={index} />
+        {todoList.map((todo) => (
+          <ListItemComponent
+            key={todo.id}
+            el={todo.name}
+            id={todo.id}
+            onDeleteHandler={onDeleteHandler}
+          />
         ))}
       </ul>
 
