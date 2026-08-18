@@ -9,9 +9,8 @@ const ListItemComonent = (props) => {
       }}
     >
       <li>{props.el}</li>
-      <button id={props.id} onClick={props.onDeleteHandler}>
-        Delete
-      </button>
+
+      {props.children}
     </div>
   );
 };

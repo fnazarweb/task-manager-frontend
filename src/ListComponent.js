@@ -1,10 +1,16 @@
 import { useState } from "react";
 
 import ListItemComponent from "./ListItemComponent";
+import ButtonComponent from "./ButtonComponent";
 
-const ListComponent = (props) => {
+const ListComponent = () => {
+  const firstTodos = [
+    { id: crypto.randomUUID(), name: "to do homework" },
+    { id: crypto.randomUUID(), name: "understand props" },
+    { id: crypto.randomUUID(), name: "to do delete button" },
+  ];
   const [input, setInput] = useState("");
-  const [todoList, setTodoList] = useState(props.todoList);
+  const [todoList, setTodoList] = useState(firstTodos);
 
   const onClickHandler = (input) => {
     if (input) {
@@ -47,9 +53,15 @@ const ListComponent = (props) => {
           <ListItemComponent
             key={todo.id}
             el={todo.name}
-            id={todo.id}
             onDeleteHandler={onDeleteHandler}
-          />
+          >
+            <ButtonComponent
+              id={todo.id}
+              text={"Delete"}
+              onClick={onDeleteHandler}
+              type={"button"}
+            />
+          </ListItemComponent>
         ))}
       </ul>
 
