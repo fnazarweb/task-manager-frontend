@@ -2,7 +2,7 @@ import { Component } from "react";
 import ButtonComponent from "./ButtonComponent";
 import ListItemClassComponent from "./ListItemClassComponent";
 
-class MyClassComponent extends Component {
+class ListClassComponent extends Component {
   firstTodos = [
     { id: crypto.randomUUID(), name: "to do homework" },
     { id: crypto.randomUUID(), name: "understand props" },
@@ -102,4 +102,4 @@ class MyClassComponent extends Component {
   }
 }
 
-export default MyClassComponent;
+export default ListClassComponent;
