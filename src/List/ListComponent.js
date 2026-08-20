@@ -1,7 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-import ListItemComponent from "./ListItemComponent";
-import ButtonComponent from "./ButtonComponent";
+import ListItemComponent from "../ListItem/ListItemComponent";
+import ButtonComponent from "../Button/ButtonComponent";
+
+import styles from "./ListComponent.module.css";
+import classNames from "classnames";
 
 const ListComponent = () => {
   const firstTodos = [
@@ -9,8 +12,17 @@ const ListComponent = () => {
     { id: crypto.randomUUID(), name: "understand props" },
     { id: crypto.randomUUID(), name: "to do delete button" },
   ];
+
   const [input, setInput] = useState("");
-  const [todoList, setTodoList] = useState(firstTodos);
+  const [todoList, setTodoList] = useState(() => {
+    const lsTodos = localStorage.getItem("todos");
+    return lsTodos ? JSON.parse(lsTodos) : firstTodos;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todoList));
+    console.log("useEffect");
+  }, [todoList]);
 
   const onClickHandler = (input) => {
     if (input) {
@@ -36,16 +48,32 @@ const ListComponent = () => {
   const onDeleteHandler = (e) => {
     const updatedTodoList = todoList.filter((item) => item.id !== e.target.id);
     setTodoList(updatedTodoList);
+    if (updatedTodoList.length === 0) {
+    }
   };
 
+  const todoClasses = classNames(styles.list, {
+    [styles.empty]: todoList.length === 0,
+  });
+
   return (
-    <>
-      <input
-        placeholder="new task"
-        onChange={onChangeHandler}
-        onKeyDown={onKeyDownHandler}
-        value={input}
-      />
+    <div className={todoClasses}>
+      <div className={styles.inputWrapper}>
+        <input
+          className={styles.input}
+          placeholder="new task"
+          onChange={onChangeHandler}
+          onKeyDown={onKeyDownHandler}
+          value={input}
+        />
+        <ButtonComponent
+          id={crypto.randomUUID()}
+          text={"Add To Do"}
+          variant={"add"}
+          onClick={() => onClickHandler(input)}
+          type={"button"}
+        />
+      </div>
 
       <p>{todoList.length}</p>
       <ul>
@@ -60,13 +88,12 @@ const ListComponent = () => {
               text={"Delete"}
               onClick={onDeleteHandler}
               type={"button"}
+              variant={"delete"}
             />
           </ListItemComponent>
         ))}
       </ul>
-
-      <button onClick={() => onClickHandler(input)}>Add TO DO</button>
-    </>
+    </div>
   );
 };
 
