@@ -5,7 +5,10 @@
 // import LayoutEffectComponent from "./LayoutEffectComponent";
 // import StateComponent from "./StateComponent";
 // import ReducerComponent from "./ReducerComponent";
-import RefComponent from "./RefComponent";
+// import RefComponent from "./RefComponent";
+// import MemoComponent from "./MemoComponent";
+// import ReactMemoComponent from "./ReactMemoComponent";
+import WidthComponent from "./WidthComponent";
 
 import "./App.css";
 
@@ -14,15 +17,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* {isShowTimer ? <ListClassComponent /> : <ListComponent />} */}
-        {/* <button onClick={() => setIsShowTimer((prev) => !prev)}>
-          Show Timer
-        </button> */}
-        {/* <EffectComponent /> */}
-        {/* <LayoutEffectComponent /> */}
-        {/* <StateComponent /> */}
-        {/* <ReducerComponent /> */}
-        <RefComponent />
+        {/* <MemoComponent /> */}
+        {/* <ReactMemoComponent /> */}
+        <WidthComponent />
       </header>
     </div>
   );
