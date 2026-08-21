@@ -1,13 +1,10 @@
 import styles from "./ListItemComponent.module.css";
 
-const ListItemComponent = (props) => {
+const ListItemComponent = ({ el, children }) => {
   return (
     <div className={styles.item}>
-      <li>
-        <span>{props.el}</span>
-      </li>
-
-      {props.children}
+      <span className={el.isDone ? styles.done : ""}>{el.name}</span>
+      {children}
     </div>
   );
 };
