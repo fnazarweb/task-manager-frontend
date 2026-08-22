@@ -1,5 +1,5 @@
 // import { useState } from "react";
-import ListComponent from "./List/ListComponent";
+// import ListComponent from "./List/ListComponent";
 // import ListClassComponent from "./ListClassComponent";
 // import EffectComponent from "./EffectComponent";
 // import LayoutEffectComponent from "./LayoutEffectComponent";
@@ -9,6 +9,7 @@ import ListComponent from "./List/ListComponent";
 // import MemoComponent from "./MemoComponent";
 // import ReactMemoComponent from "./ReactMemoComponent";
 // import WidthComponent from "./WidthComponent";
+import ReactFormComponent from "./ReactFormComponent";
 
 import "./App.css";
 
@@ -17,7 +18,8 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ListComponent />
+        {/* <ListComponent /> */}
+        <ReactFormComponent />
       </header>
     </div>
   );
