@@ -1,69 +1,39 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import ListItemComponent from "../ListItem/ListItemComponent";
-import ButtonComponent from "../Button/ButtonComponent";
-import CheckboxComponent from "../Checkbox/CheckboxComponent";
+import TodoForm from "../TodoForm/TodoForm";
+
+import { getTodoList } from "../api/api";
 
 import styles from "./ListComponent.module.css";
 import classNames from "classnames";
+import { useQuery } from "react-query";
+import { HashLoader, BeatLoader } from "react-spinners";
+import ButtonComponent from "../Button/ButtonComponent";
+
+const options = [
+  { value: "active", label: "Active" },
+  { value: "done", label: "Done" },
+  { value: "all", label: "All" },
+];
 
 const ListComponent = () => {
-  const firstTodos = [
-    { id: crypto.randomUUID(), name: "to do homework", isDone: false },
-    { id: crypto.randomUUID(), name: "understand props", isDone: false },
-    { id: crypto.randomUUID(), name: "to do delete button", isDone: false },
-  ];
-
-  const [input, setInput] = useState("");
-  const [error, setError] = useState("");
-  const [todoList, setTodoList] = useState(() => {
-    const lsTodos = localStorage.getItem("todos");
-    return lsTodos ? JSON.parse(lsTodos) : firstTodos;
-  });
   const [selectedOption, setSelectedOption] = useState("all");
+  const [isFormVisible, setIsFormVisible] = useState(null);
 
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(todoList));
-    console.log("useEffect");
-  }, [todoList]);
-
-  const onChangeHandler = (e) => {
-    const value = e.target.value;
-    const errorMin = "Must be more then 3 characters";
-    const errorMax = "Must be less then 50 characters";
-    setInput(value);
-
-    if (value.length <= 3 && value.length > 0) {
-      setError(errorMin);
-    } else if (value.length >= 50) {
-      setError(errorMax);
-    } else {
-      setError("");
-    }
-  };
-
-  const onKeyDownHandler = (e) => {
-    if (e.key === "Enter") {
-      onClickHandler(input);
-    }
-  };
-
-  const onClickHandler = (input) => {
-    if (input && error === "") {
-      const updatedElement = [
-        ...todoList,
-        { id: crypto.randomUUID(), name: input, isDone: false },
-      ];
-      setTodoList(updatedElement);
-      setInput("");
-    } else {
-      setError("Should contains value between 3 and 50 characters");
-    }
-  };
+  const {
+    isPending: isTodosLoading,
+    isError,
+    isFetching,
+    data: todos,
+  } = useQuery({
+    queryKey: ["todos"],
+    queryFn: getTodoList,
+    refetchOnWindowFocus: false,
+  });
 
   const onDeleteHandler = (e) => {
-    const updatedTodoList = todoList.filter((item) => item.id !== e.target.id);
-    setTodoList(updatedTodoList);
+    // const updatedTodoList = todos.filter((item) => item.id !== e.target.id);
   };
 
   const handleChangeOption = (e) => {
@@ -71,110 +41,68 @@ const ListComponent = () => {
   };
 
   const todoClasses = classNames(styles.list, {
-    [styles.empty]: todoList.length === 0,
+    [styles.empty]: todos?.length === 0,
   });
 
-  const options = [
-    { value: "active", label: "Active" },
-    { value: "done", label: "Done" },
-    { value: "all", label: "All" },
-  ];
-
-  return (
-    <div className={todoClasses}>
-      <p className={styles.error}>{error}</p>
-
-      <div className={styles.inputWrapper}>
-        <select
-          className={styles.select}
-          value={selectedOption}
-          onChange={handleChangeOption}
-        >
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <input
-          className={styles.input}
-          placeholder="new task"
-          onChange={onChangeHandler}
-          onKeyDown={onKeyDownHandler}
-          value={input}
-        />
-        <ButtonComponent
-          id={crypto.randomUUID()}
-          text="Add To Do"
-          variant="add"
-          onClick={() => onClickHandler(input)}
-          type="button"
-        />
+  const filteredTodos =
+    selectedOption === "active"
+      ? todos.filter((todo) => !todo.checked)
+      : selectedOption === "done"
+        ? todos.filter((todo) => todo.checked)
+        : todos;
+  if (isTodosLoading) {
+    return <HashLoader />;
+  }
+  if (isError) {
+    return <h2>Something went wrong: </h2>;
+  } else {
+    return (
+      <div className={todoClasses}>
+        {isFetching && (
+          <div>
+            <span>Updating</span>
+            <BeatLoader size={10} />
+          </div>
+        )}
+        {todos?.length === 0 ? (
+          <div>
+            <p>You don't have any tasks yet</p>
+            <ButtonComponent
+              text="Add To Do"
+              variant="add"
+              onClick={() => setIsFormVisible(true)}
+            />
+          </div>
+        ) : (
+          <>
+            <select
+              className={styles.select}
+              value={selectedOption}
+              onChange={handleChangeOption}
+            >
+              {options.map((option) => (
+                <option key={option.value} value={option.value}>
+                  {option.label}
+                </option>
+              ))}
+            </select>
+            <TodoForm
+              handleChangeOption={(e) => handleChangeOption(e)}
+              selectedOption={selectedOption}
+            />
+            {selectedOption === "all" && <p>Tasks: {todos?.length}</p>}
+            <ul style={{ padding: 0 }}>
+              {filteredTodos?.map((todo) => (
+                <li key={todo.id} className={styles.listRow}>
+                  <ListItemComponent todo={todo} onDelete={onDeleteHandler} />
+                </li>
+              ))}
+            </ul>
+          </>
+        )}
       </div>
-
-      {selectedOption === "all" && <p>Tasks: {todoList.length}</p>}
-
-      {selectedOption === "all" && (
-        <ul style={{ padding: 0 }}>
-          {todoList.map((todo) => (
-            <li key={todo.id} className={styles.listRow}>
-              <CheckboxComponent todo={todo} setTodoList={setTodoList} />
-              <ListItemComponent el={todo}>
-                <ButtonComponent
-                  id={todo.id}
-                  text="Delete"
-                  onClick={onDeleteHandler}
-                  type="button"
-                  variant="delete"
-                />
-              </ListItemComponent>
-            </li>
-          ))}
-        </ul>
-      )}
-      {selectedOption === "active" && (
-        <ul style={{ padding: 0 }}>
-          {todoList
-            .filter((todo) => !todo.isDone)
-            .map((todo) => (
-              <li key={todo.id} className={styles.listRow}>
-                <CheckboxComponent todo={todo} setTodoList={setTodoList} />
-                <ListItemComponent el={todo}>
-                  <ButtonComponent
-                    id={todo.id}
-                    text="Delete"
-                    onClick={onDeleteHandler}
-                    type="button"
-                    variant="delete"
-                  />
-                </ListItemComponent>
-              </li>
-            ))}
-        </ul>
-      )}
-
-      {selectedOption === "done" && (
-        <ul style={{ padding: 0 }}>
-          {todoList
-            .filter((todo) => todo.isDone)
-            .map((todo) => (
-              <li key={todo.id} className={styles.listRow}>
-                <CheckboxComponent todo={todo} setTodoList={setTodoList} />
-                <ListItemComponent el={todo}>
-                  <ButtonComponent
-                    id={todo.id}
-                    text="Delete"
-                    onClick={onDeleteHandler}
-                    type="button"
-                    variant="delete"
-                  />
-                </ListItemComponent>
-              </li>
-            ))}
-        </ul>
-      )}
-    </div>
-  );
+    );
+  }
 };
 
 export default ListComponent;

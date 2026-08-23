@@ -9,7 +9,6 @@ const ButtonComponent = (props) => {
   return (
     <button
       className={btnClasses}
-      id={props.id}
       type={props.type}
       variant={props.variant}
       onClick={props.onClick}

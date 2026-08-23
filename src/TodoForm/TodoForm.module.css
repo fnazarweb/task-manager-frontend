@@ -1,0 +1,44 @@
+.form {
+  width: 80%;
+  margin: 20px auto;
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  margin: 5px auto 30px auto;
+  max-width: 1000px;
+  gap: 10px;
+}
+
+.input {
+  display: flex;
+  flex: 1;
+  height: 30px;
+  width: 95%;
+  padding-left: 5px;
+  border: 1px solid #3d2f2a;
+  border-radius: 5px;
+  background-color: white;
+  font-family: cursive;
+  font-size: medium;
+  position: relative;
+}
+
+.input:focus {
+  background-color: antiquewhite;
+}
+
+.labelWrapper {
+  display: flex;
+  width: 150px;
+}
+.label:hover {
+  cursor: pointer;
+}
+
+.error {
+  color: red;
+  margin: 0 auto;
+  font-size: 14px;
+}
