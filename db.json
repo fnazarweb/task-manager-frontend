@@ -1,91 +1,25 @@
 {
   "todos": [
     {
-      "id": 1,
-      "title": "todo1",
-      "description": "to do homework",
-      "checked": false,
-      "creationDate": "date"
+      "title": "Todo",
+      "description": "should code to do list today",
+      "checked": true,
+      "creationDate": "8/25/2026, 1:22:43 AM",
+      "id": 3
     },
     {
-      "id": 2,
-      "title": "todo2",
-      "description": "understand react-query",
+      "title": "Homework",
+      "description": "Do homework 23",
       "checked": false,
-      "creationDate": "date"
-    },
-    {
-      "id": 3,
-      "title": "todo3",
-      "description": "to do queries",
-      "checked": false,
-      "creationDate": "date"
-    },
-    {
-      "description": "s",
-      "checked": false,
-      "creationDate": "8/23/2026, 9:44:08 PM",
+      "creationDate": "8/25/2026, 1:23:58 AM",
       "id": 4
     },
     {
-      "description": "s",
+      "title": "Coding",
+      "description": "Learn how to code correctly",
       "checked": false,
-      "creationDate": "8/23/2026, 9:44:09 PM",
+      "creationDate": "8/25/2026, 1:24:24 AM",
       "id": 5
-    },
-    {
-      "description": "dsdsds",
-      "checked": false,
-      "creationDate": "8/23/2026, 9:44:14 PM",
-      "id": 6
-    },
-    {
-      "description": "",
-      "checked": false,
-      "creationDate": "8/23/2026, 9:45:13 PM",
-      "id": 7
-    },
-    {
-      "description": "",
-      "checked": false,
-      "creationDate": "8/23/2026, 9:46:13 PM",
-      "id": 8
-    },
-    {
-      "description": "eqw",
-      "checked": false,
-      "creationDate": "8/23/2026, 9:47:56 PM",
-      "id": 9
-    },
-    {
-      "description": "dadasd",
-      "checked": false,
-      "creationDate": "8/23/2026, 10:00:27 PM",
-      "id": 10
-    },
-    {
-      "description": "dasd",
-      "checked": false,
-      "creationDate": "8/23/2026, 10:19:00 PM",
-      "id": 11
-    },
-    {
-      "description": "dasddasda",
-      "checked": false,
-      "creationDate": "8/23/2026, 10:19:01 PM",
-      "id": 12
-    },
-    {
-      "description": "dasd",
-      "checked": false,
-      "creationDate": "8/23/2026, 10:21:07 PM",
-      "id": 13
-    },
-    {
-      "description": "asdasdas",
-      "checked": false,
-      "creationDate": "8/23/2026, 10:29:15 PM",
-      "id": 14
     }
   ]
 }

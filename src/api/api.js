@@ -8,3 +8,11 @@ export const getTodoList = async () => {
 export const addTodo = async (payload) => {
   await axios.post("todos", payload);
 };
+
+export const updateTodo = async (payload) => {
+  await axios.put(`todos/${payload.id}`, payload);
+};
+
+export const deleteTodo = async (id) => {
+  await axios.delete(`todos/${id}`);
+};
