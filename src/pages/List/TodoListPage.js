@@ -1,10 +1,10 @@
-import TodoItem from "../Item/TodoItem";
-import TodoForm from "../Form/TodoForm";
-import styles from "./TodoList.module.css";
+import Item from "../../components/Item/Item";
+import TodoForm from "../../components/Form/TodoForm";
+import styles from "./TodoListPage.module.css";
 import classNames from "classnames";
 import { HashLoader, BeatLoader } from "react-spinners";
-import Button from "../Button/Button";
-import { useTodos } from "../hooks/useTodos";
+import Button from "../../components/Button/Button";
+import { useTodos } from "../../hooks/useTodos";
 
 const options = [
   { value: "active", label: "Active" },
@@ -12,17 +12,16 @@ const options = [
   { value: "all", label: "All" },
 ];
 
-const TodoList = () => {
+const TodoListPage = () => {
   const {
     todos,
     filteredTodos,
     selectedOption,
     onDeleteHandler,
     isDeletingTodo,
-    handleChangeOption,
     editingTodo,
+    handleChangeOption,
     onEditHandler,
-    modalClose,
     setIsFormOpen,
     isFormOpen,
     isTodosLoading,
@@ -67,28 +66,8 @@ const TodoList = () => {
                 </option>
               ))}
             </select>
-            <TodoForm
-              mode="create"
-              handleChangeOption={(e) => handleChangeOption(e)}
-              selectedOption={selectedOption}
-            />
+            <TodoForm mode="create" />
 
-            {editingTodo !== null && (
-              <div className={styles.modalOverlay} onClick={modalClose}>
-                <div
-                  className={styles.modal}
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  <TodoForm
-                    mode="edit"
-                    initialData={editingTodo}
-                    onClose={modalClose}
-                    handleChangeOption={(e) => handleChangeOption(e)}
-                    selectedOption={selectedOption}
-                  />
-                </div>
-              </div>
-            )}
             {isFetching && (
               <div>
                 <span>Updating</span>
@@ -101,7 +80,7 @@ const TodoList = () => {
             <ul style={{ padding: 0 }}>
               {filteredTodos?.map((todo) => (
                 <li key={todo.id} className={styles.listRow}>
-                  <TodoItem
+                  <Item
                     isDeletingTodo={isDeletingTodo}
                     todo={todo}
                     onDelete={() => onDeleteHandler(todo.id)}
@@ -119,4 +98,4 @@ const TodoList = () => {
   }
 };
 
-export default TodoList;
+export default TodoListPage;

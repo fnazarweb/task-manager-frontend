@@ -2,7 +2,7 @@ import { useMutation } from "react-query";
 import { addTodo, updateTodo, deleteTodo } from "../api/api";
 import { queryClient } from "../index";
 
-export const useTodoMutations = ({ onUpdateSuccess } = {}) => {
+export const useTodoMutations = () => {
   const { mutateAsync: createMutateAsync, isLoading: isAddingTodo } =
     useMutation({
       mutationFn: addTodo,
@@ -17,7 +17,6 @@ export const useTodoMutations = ({ onUpdateSuccess } = {}) => {
       mutationFn: updateTodo,
       onSuccess: () => {
         queryClient.invalidateQueries(["todos"]);
-        onUpdateSuccess?.();
       },
       onError: (error) => {
         console.log("Something went wrong...", error);

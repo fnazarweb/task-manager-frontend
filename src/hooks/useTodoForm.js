@@ -6,7 +6,7 @@ import {
   getFieldLengthError,
 } from "../utils/validation";
 
-export const useTodoForm = ({ initialData, onClose }) => {
+export const useTodoForm = ({ initialData }) => {
   const initialTitle = initialData?.title ?? "";
   const inintialDesc = initialData?.description ?? "";
   const initialChecked = initialData?.checked ?? false;
@@ -19,7 +19,7 @@ export const useTodoForm = ({ initialData, onClose }) => {
   });
 
   const { createMutateAsync, updateMutateAsync, isAddingTodo, isUpdatingTodo } =
-    useTodoMutations({ onUpdateSuccess: onClose });
+    useTodoMutations();
 
   const validate = () => {
     const { titleError, descError } = validateTodoFields(
@@ -60,12 +60,16 @@ export const useTodoForm = ({ initialData, onClose }) => {
   };
 
   const handleUpdate = async (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-    if (!hasFormChanges(value, initialTitle, inintialDesc, initialChecked)) {
-      onClose?.();
+    if (!validate()) {
+      e.preventDefault();
       return;
     }
+
+    if (!hasFormChanges(value, initialTitle, inintialDesc, initialChecked)) {
+      return;
+    }
+
+    e.preventDefault();
     try {
       await updateMutateAsync({
         id: initialData.id,
@@ -74,6 +78,7 @@ export const useTodoForm = ({ initialData, onClose }) => {
         checked: value.checked,
         creationDate: new Date().toLocaleString(),
       });
+      window.location.href = "/todoList";
     } catch (error) {
       console.log(error);
     }

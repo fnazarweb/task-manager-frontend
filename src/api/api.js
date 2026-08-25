@@ -16,3 +16,8 @@ export const updateTodo = async (payload) => {
 export const deleteTodo = async (id) => {
   await axios.delete(`todos/${id}`);
 };
+
+export const getSingleTodo = async (id) => {
+  const todo = await axios.get(`todos/${id}`);
+  return todo.data;
+};

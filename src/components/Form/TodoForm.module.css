@@ -1,5 +1,5 @@
 .form {
-  width: 80%;
+  width: 100%;
   margin: 50px auto;
   font-size: 23px;
 }
@@ -42,4 +42,29 @@
   color: red;
   margin: 0 auto;
   font-size: 14px;
+}
+
+.saveEditedTodo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 50px;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: yellow;
+  border: 2px solid rgb(253, 198, 94);
+  color: brown;
+  cursor: pointer;
+  font-size: medium;
+}
+
+.saveEditedTodo:hover {
+  box-shadow: 0 5px 10px rgba(158, 147, 43, 0.72);
+}
+
+.saveEditedTodo:active {
+  color: yellow;
+  background-color: orange;
+  border: 2px solid yellow;
 }

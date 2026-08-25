@@ -6,7 +6,7 @@
   width: 100%;
   min-height: 80vh;
   max-height: 1000px;
-  margin: 10px auto;
+  margin: 50px auto;
   overflow: auto;
   background-color: #fff7ed;
   border-radius: 20px;
@@ -42,22 +42,4 @@
 .select:hover {
   background-color: antiquewhite;
   border: 1px solid black;
-}
-
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  background: rgb(0 0 0 / 50%);
-}
-
-.modal {
-  background-color: rgb(255, 247, 237);
-  width: min(800px, 90%);
-  padding: 30px;
-  border-radius: 10px;
 }

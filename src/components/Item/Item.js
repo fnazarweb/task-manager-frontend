@@ -1,8 +1,9 @@
-import styles from "./TodoItem.module.css";
+import styles from "./Item.module.css";
 
 import Button from "../Button/Button";
+import { Link } from "react-router-dom";
 
-const TodoItem = ({ todo, onDelete, onEdit, isDeletingTodo }) => {
+const Item = ({ todo, onDelete, onEdit, isDeletingTodo }) => {
   return (
     <div className={styles.item}>
       <span className={todo.checked ? styles.done : ""}>{todo.title}</span>
@@ -15,16 +16,17 @@ const TodoItem = ({ todo, onDelete, onEdit, isDeletingTodo }) => {
           type="button"
           variant="delete"
         />
-        <Button
+        <Link
+          className={styles.editLink}
           disabled={isDeletingTodo}
-          text="Edit"
           onClick={onEdit}
-          type="button"
-          variant="edit"
-        />
+          to={`${todo.id}`}
+        >
+          Edit
+        </Link>
       </div>
     </div>
   );
 };
 
-export default TodoItem;
+export default Item;

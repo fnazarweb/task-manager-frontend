@@ -1,0 +1,39 @@
+.item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
+
+.item span {
+  font-size: 25px;
+  overflow-wrap: anywhere;
+}
+
+span.done {
+  text-decoration: line-through;
+  text-decoration-color: rgb(138, 113, 80);
+}
+
+.editLink {
+  display: inline-block;
+  min-width: 80px;
+  height: 28px;
+  margin: 5px;
+  border-radius: 10px;
+  background-color: yellow;
+  border: 2px solid rgb(253, 198, 94);
+  color: brown;
+  cursor: pointer;
+}
+
+.editLink:hover {
+  box-shadow: 0 5px 10px rgba(158, 147, 43, 0.72);
+}
+
+.editLink:active {
+  color: yellow;
+  background-color: orange;
+  border: 2px solid yellow;
+}

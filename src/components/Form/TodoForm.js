@@ -3,7 +3,8 @@ import { useId } from "react";
 import styles from "./TodoForm.module.css";
 import Button from "../Button/Button";
 import Checkbox from "../Checkbox/Checkbox";
-import { useTodoForm } from "../hooks/useTodoForm";
+import { useTodoForm } from "../../hooks/useTodoForm";
+import { Link } from "react-router-dom";
 
 const TodoForm = ({ initialData, mode, onClose }) => {
   const formId = useId();
@@ -26,10 +27,7 @@ const TodoForm = ({ initialData, mode, onClose }) => {
     if (e.key === "Enter") handleSubmit(e);
   };
   return (
-    <form
-      className={styles.form}
-      onSubmit={mode === "create" ? handleAdd : handleUpdate}
-    >
+    <form className={styles.form} onSubmit={handleSubmit}>
       <p className={styles.error}>{value.titleError}</p>
 
       <div className={styles.field}>
@@ -83,12 +81,22 @@ const TodoForm = ({ initialData, mode, onClose }) => {
           handleChangeCheckbox={handleChangeCheckbox}
         />
       </div>
-      <Button
-        disabled={isAddingTodo || isUpdatingTodo}
-        text={mode === "create" ? "Add To Do" : "Save To Do"}
-        variant={mode === "create" ? "add" : "edit"}
-        type="submit"
-      />
+      {mode === "create" ? (
+        <Button
+          disabled={isAddingTodo || isUpdatingTodo}
+          text="Add To Do"
+          variant="add"
+          type="submit"
+        />
+      ) : (
+        <Link
+          className={styles.saveEditedTodo}
+          onClick={handleUpdate}
+          to={"/todoList"}
+        >
+          Save to do
+        </Link>
+      )}
     </form>
   );
 };
