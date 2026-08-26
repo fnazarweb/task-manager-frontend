@@ -2,11 +2,13 @@ import { useState } from "react";
 import { getTodoList } from "../api/api";
 import { useQuery } from "react-query";
 import { useTodoMutations } from "./useTodoMutations";
+import { useNavigate } from "react-router-dom";
 
 export const useTodos = () => {
   const [selectedOption, setSelectedOption] = useState("all");
   const [editingTodo, setEditingTodo] = useState(null);
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const navigate = useNavigate();
 
   const {
     isPending: isTodosLoading,
@@ -25,7 +27,12 @@ export const useTodos = () => {
     try {
       await deleteMutateAsync(id);
     } catch (error) {
-      console.warn("Something went wrong with deleting todo... ", error);
+      navigate("/error", {
+        state: {
+          error: error.message,
+        },
+        replace: true,
+      });
     }
   };
 

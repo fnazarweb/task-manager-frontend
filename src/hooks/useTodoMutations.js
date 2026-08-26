@@ -1,14 +1,22 @@
 import { useMutation } from "react-query";
 import { addTodo, updateTodo, deleteTodo } from "../api/api";
 import { queryClient } from "../index";
+import { useNavigate } from "react-router-dom";
 
 export const useTodoMutations = () => {
+  const navigate = useNavigate();
+
   const { mutateAsync: createMutateAsync, isLoading: isAddingTodo } =
     useMutation({
       mutationFn: addTodo,
       onSuccess: () => queryClient.invalidateQueries(["todos"]),
       onError: (error) => {
-        console.log("Something went wrong...", error);
+        navigate("/error", {
+          state: {
+            error: error.message,
+          },
+          replace: true,
+        });
       },
     });
 
@@ -19,7 +27,12 @@ export const useTodoMutations = () => {
         queryClient.invalidateQueries(["todos"]);
       },
       onError: (error) => {
-        console.log("Something went wrong...", error);
+        navigate("/error", {
+          state: {
+            error: error.message,
+          },
+          replace: true,
+        });
       },
     });
 
@@ -30,7 +43,12 @@ export const useTodoMutations = () => {
         queryClient.invalidateQueries("todos");
       },
       onError: (error) => {
-        console.warn("Something went wrong with deleting todo... ", error);
+        navigate("/error", {
+          state: {
+            error: error.message,
+          },
+          replace: true,
+        });
       },
     });
 
