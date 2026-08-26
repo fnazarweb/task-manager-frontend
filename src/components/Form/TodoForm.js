@@ -82,12 +82,14 @@ const TodoForm = ({ initialData, mode, onClose }) => {
         />
       </div>
       {mode === "create" ? (
-        <Button
-          disabled={isAddingTodo || isUpdatingTodo}
-          text="Add To Do"
-          variant="add"
-          type="submit"
-        />
+        <div className={styles.buttonWrapper}>
+          <Button
+            disabled={isAddingTodo || isUpdatingTodo}
+            text="Add To Do"
+            variant="add"
+            type="submit"
+          />
+        </div>
       ) : (
         <Link
           className={styles.saveEditedTodo}

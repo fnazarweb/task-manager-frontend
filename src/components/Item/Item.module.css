@@ -17,23 +17,39 @@ span.done {
 }
 
 .editLink {
-  display: inline-block;
-  min-width: 80px;
-  height: 28px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 90px;
+  height: 36px;
   margin: 5px;
-  border-radius: 10px;
-  background-color: yellow;
+  padding: 0;
+
+  box-sizing: border-box;
+
   border: 2px solid rgb(253, 198, 94);
-  color: brown;
+  border-radius: 9px;
+  background-color: #fff7ed;
+
+  color: #3d2f2a;
+  font-family: cursive;
+  font-size: 16px;
+  text-decoration: none;
+
   cursor: pointer;
+
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
 }
 
 .editLink:hover {
-  box-shadow: 0 5px 10px rgba(158, 147, 43, 0.72);
+  background-color: #f5e5c9;
+  box-shadow: 0 4px 9px rgba(158, 147, 43, 0.3);
 }
 
 .editLink:active {
-  color: yellow;
-  background-color: orange;
-  border: 2px solid yellow;
+  transform: scale(0.96);
 }

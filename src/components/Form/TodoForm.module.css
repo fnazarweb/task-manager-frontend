@@ -1,70 +1,134 @@
 .form {
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  margin: 50px auto;
-  font-size: 23px;
+  max-width: 850px;
+  margin: 35px auto;
+  padding: 35px 40px;
+
+  background-color: #fff7ed;
+  border: 1px solid #d4c0a8;
+  border-radius: 20px;
+  box-shadow: 0 8px 25px rgba(61, 47, 42, 0.1);
+
+  color: #3d2f2a;
+  font-family: cursive;
+  font-size: 21px;
+
+  box-sizing: border-box;
+  animation: appearance 0.4s ease;
 }
 
 .field {
   display: flex;
   align-items: center;
-  margin: 5px auto 30px auto;
-  max-width: 1000px;
-  gap: 10px;
-}
-
-.input {
-  display: flex;
-  flex: 1;
-  height: 30px;
-  width: 95%;
-  padding-left: 5px;
-  border: 1px solid #3d2f2a;
-  border-radius: 5px;
-  background-color: white;
-  font-family: cursive;
-  font-size: medium;
-  position: relative;
-}
-
-.input:focus {
-  background-color: antiquewhite;
+  width: 100%;
+  margin-bottom: 22px;
+  gap: 20px;
 }
 
 .labelWrapper {
   display: flex;
-  width: 150px;
+  flex-shrink: 0;
+  width: 140px;
 }
-.label:hover {
+
+.label {
+  color: #3d2f2a;
   cursor: pointer;
 }
 
+.input {
+  flex: 1;
+  width: 100%;
+  height: 42px;
+  padding: 0 12px;
+
+  border: 1px solid #c2a988;
+  border-radius: 8px;
+  background-color: white;
+
+  color: #3d2f2a;
+  font-family: cursive;
+  font-size: 16px;
+
+  outline: none;
+  box-sizing: border-box;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input::placeholder {
+  color: #a18c78;
+}
+
+.input:focus {
+  background-color: #fffaf2;
+  border-color: #a98b68;
+  box-shadow: 0 0 0 3px rgba(212, 192, 168, 0.35);
+}
+
 .error {
-  color: red;
-  margin: 0 auto;
+  min-height: 18px;
+  margin: 0 0 5px 160px;
+
+  color: #b85c5c;
   font-size: 14px;
+  text-align: left;
 }
 
 .saveEditedTodo {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 150px;
-  height: 50px;
-  margin: 0 auto;
-  border-radius: 10px;
-  background-color: yellow;
+
+  width: 160px;
+  min-height: 48px;
+  margin: 10px auto 0;
+  padding: 0 20px;
+
   border: 2px solid rgb(253, 198, 94);
-  color: brown;
+  border-radius: 10px;
+  background-color: #fff7ed;
+
+  color: #3d2f2a;
+  font-family: cursive;
+  font-size: 17px;
+
   cursor: pointer;
-  font-size: medium;
+  box-sizing: border-box;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.1s ease;
 }
 
 .saveEditedTodo:hover {
-  box-shadow: 0 5px 10px rgba(158, 147, 43, 0.72);
+  background-color: antiquewhite;
+  box-shadow: 0 5px 10px rgba(158, 147, 43, 0.35);
 }
 
 .saveEditedTodo:active {
-  color: yellow;
-  background-color: orange;
-  border: 2px solid yellow;
+  background-color: #f5d9a6;
+  transform: scale(0.97);
+}
+
+.buttonWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+@keyframes appearance {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

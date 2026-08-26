@@ -37,7 +37,9 @@ const Layout = () => {
         <Outlet />
       </main>
       <footer className={styles.footer}>
-        <p className={styles.text}> {new Date().getFullYear()}</p>My todos{" "}
+        <p className={styles.text}>
+          © {new Date().getFullYear()} My Todos. All rights reserved
+        </p>
       </footer>
     </div>
   );
