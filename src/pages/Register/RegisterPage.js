@@ -1,11 +1,13 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import styles from "./RegisterPage.module.css";
 import { useMutation } from "react-query";
 import { addUser } from "../../api/api";
 import { useNavigate } from "react-router-dom";
 import { HashLoader } from "react-spinners";
+import { AuthContext } from "../../context/AuthContext";
 
-const RegisterPage = ({ setIsAuthenticated }) => {
+const RegisterPage = () => {
+  const { setIsAuthenticated } = useContext(AuthContext);
   const ref = useRef();
   const navigate = useNavigate();
 

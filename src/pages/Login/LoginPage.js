@@ -1,11 +1,13 @@
-import { useRef } from "react";
+import { useContext, useRef } from "react";
 import styles from "./LoginPage.module.css";
 import { useQuery } from "react-query";
 import { getUsers } from "../../api/api";
 import { HashLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
-const LoginPage = ({ setIsAuthenticated }) => {
+const LoginPage = () => {
+  const { setIsAuthenticated } = useContext(AuthContext);
   const ref = useRef(null);
   const navigate = useNavigate();
   const { data, isFetching } = useQuery({

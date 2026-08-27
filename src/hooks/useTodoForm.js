@@ -5,8 +5,10 @@ import {
   validateTodoFields,
   getFieldLengthError,
 } from "../utils/validation";
+import { useNavigate } from "react-router-dom";
 
 export const useTodoForm = ({ initialData }) => {
+  const navigate = useNavigate();
   const initialTitle = initialData?.title ?? "";
   const inintialDesc = initialData?.description ?? "";
   const initialChecked = initialData?.checked ?? false;
@@ -78,7 +80,7 @@ export const useTodoForm = ({ initialData }) => {
         checked: value.checked,
         creationDate: new Date().toLocaleString(),
       });
-      window.location.href = "/todoList";
+      navigate("/todoList");
     } catch (error) {
       console.log(error);
     }
