@@ -1,13 +1,19 @@
 import { useState } from "react";
-import { useTodoMutations } from "../hooks/useTodoMutations";
+import { useNavigate } from "react-router-dom";
 import {
   hasFormChanges,
   validateTodoFields,
   getFieldLengthError,
 } from "../utils/validation";
-import { useNavigate } from "react-router-dom";
+import {
+  useAddTodoMutation,
+  useUpdateTodoMutation,
+} from "../redux/todos/todosApi";
 
 export const useTodoForm = ({ initialData }) => {
+  const [addTodo, { isLoading: isAddingTodo }] = useAddTodoMutation();
+  const [updateTodo, { isLoading: isUpdatingTodo }] = useUpdateTodoMutation();
+
   const navigate = useNavigate();
   const initialTitle = initialData?.title ?? "";
   const inintialDesc = initialData?.description ?? "";
@@ -19,9 +25,6 @@ export const useTodoForm = ({ initialData }) => {
     titleError: "",
     descError: "",
   });
-
-  const { createMutateAsync, updateMutateAsync, isAddingTodo, isUpdatingTodo } =
-    useTodoMutations();
 
   const validate = () => {
     const { titleError, descError } = validateTodoFields(
@@ -41,12 +44,12 @@ export const useTodoForm = ({ initialData }) => {
     e.preventDefault();
     if (!validate()) return;
     try {
-      await createMutateAsync({
+      await addTodo({
         title: value.inputTitle,
         description: value.inputDesc,
         checked: value.checked,
         creationDate: new Date().toLocaleString(),
-      });
+      }).unwrap();
 
       setValue((prevState) => ({
         ...prevState,
@@ -57,7 +60,13 @@ export const useTodoForm = ({ initialData }) => {
         descError: "",
       }));
     } catch (error) {
-      console.log(error);
+      navigate("/error", {
+        state: {
+          error:
+            error.data?.message || `Invalid error with code ${error.status}`,
+        },
+        replace: true,
+      });
     }
   };
 
@@ -73,16 +82,22 @@ export const useTodoForm = ({ initialData }) => {
 
     e.preventDefault();
     try {
-      await updateMutateAsync({
+      await updateTodo({
         id: initialData.id,
         title: value.inputTitle,
         description: value.inputDesc,
         checked: value.checked,
         creationDate: new Date().toLocaleString(),
-      });
+      }).unwrap();
       navigate("/todoList");
     } catch (error) {
-      console.log(error);
+      navigate("/error", {
+        state: {
+          error:
+            error.data?.message || `Invalid error with code ${error.status}`,
+        },
+        replace: true,
+      });
     }
   };
 

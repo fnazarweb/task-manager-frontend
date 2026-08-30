@@ -2,13 +2,22 @@ import { Outlet, NavLink } from "react-router-dom";
 
 import styles from "./Layout.module.css";
 import classNames from "classnames";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Layout = () => {
+  const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
   const getActiveLink = (isActive) => {
-    return classNames(styles.link, {
+    return classNames(styles.navLink, {
       [styles.activeLink]: isActive,
     });
   };
+
+  const handleLogout = () => {
+    localStorage.removeItem("email");
+    setIsAuthenticated(false);
+  };
+
   return (
     <div className={styles.layout}>
       <header className={styles.header}>
@@ -30,6 +39,12 @@ const Layout = () => {
           >
             Todos
           </NavLink>
+
+          {isAuthenticated && (
+            <NavLink className={styles.navLink} onClick={handleLogout}>
+              Logout
+            </NavLink>
+          )}
         </nav>
       </header>
 

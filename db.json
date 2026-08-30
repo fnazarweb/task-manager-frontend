@@ -2,32 +2,16 @@
   "todos": [
     {
       "id": 1,
-      "title": "rrwer1234115",
-      "description": "rwer12123",
-      "checked": false,
-      "creationDate": "8/27/2026, 4:59:07 PM"
+      "title": "RTK Query",
+      "description": "Learn RTK Query :)",
+      "checked": true,
+      "creationDate": "8/30/2026, 3:27:17 PM"
     }
   ],
   "auth": [
     {
       "email": "nazar8@gmail.com",
       "id": 1
-    },
-    {
-      "email": "fasfas123@gmail.com",
-      "id": 2
-    },
-    {
-      "email": "fasfasfa123@gmail.com",
-      "id": 3
-    },
-    {
-      "email": "fnazzar111@gmail.com",
-      "id": 4
-    },
-    {
-      "email": "fasfasf",
-      "id": 5
     }
   ]
 }

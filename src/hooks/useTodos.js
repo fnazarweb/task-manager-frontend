@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { getTodoList } from "../api/api";
-import { useQuery } from "react-query";
-import { useTodoMutations } from "./useTodoMutations";
 import { useNavigate } from "react-router-dom";
+import {
+  useGetTodosQuery,
+  useDeleteTodoMutation,
+} from "../redux/todos/todosApi";
 
 export const useTodos = () => {
   const [selectedOption, setSelectedOption] = useState("all");
@@ -11,25 +12,22 @@ export const useTodos = () => {
   const navigate = useNavigate();
 
   const {
-    isPending: isTodosLoading,
+    data: todos,
+    isLoading: isTodosLoading,
     isError,
     isFetching,
-    data: todos,
-  } = useQuery({
-    queryKey: ["todos"],
-    queryFn: getTodoList,
-    refetchOnWindowFocus: false,
-  });
-
-  const { deleteMutateAsync, isDeletingTodo } = useTodoMutations();
+    error,
+  } = useGetTodosQuery();
+  const [deleteTodo, { isLoading: isDeletingTodo }] = useDeleteTodoMutation();
 
   const onDeleteHandler = async (id) => {
     try {
-      await deleteMutateAsync(id);
+      await deleteTodo(id).unwrap();
     } catch (error) {
       navigate("/error", {
         state: {
-          error: error.message,
+          error:
+            error.data?.message || `Invalid error with code ${error.status}`,
         },
         replace: true,
       });
@@ -42,12 +40,13 @@ export const useTodos = () => {
 
   const handleChangeOption = (e) => setSelectedOption(e.target.value);
 
-  const filteredTodos =
-    selectedOption === "active"
+  const filteredTodos = todos
+    ? selectedOption === "active"
       ? todos.filter((todo) => !todo.checked)
       : selectedOption === "done"
         ? todos.filter((todo) => todo.checked)
-        : todos;
+        : todos
+    : [];
 
   return {
     todos,
@@ -64,5 +63,6 @@ export const useTodos = () => {
     isTodosLoading,
     isError,
     isFetching,
+    error,
   };
 };

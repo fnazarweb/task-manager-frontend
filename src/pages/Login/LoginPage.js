@@ -1,33 +1,42 @@
-import { useContext, useRef } from "react";
+import { useContext, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./LoginPage.module.css";
-import { useQuery } from "react-query";
-import { getUsers } from "../../api/api";
 import { HashLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+import {
+  selectUsersData,
+  selectUsersLoading,
+} from "../../redux/users/usersSelectors";
 
 const LoginPage = () => {
+  const [inputError, setInputError] = useState("");
+  const usersData = useSelector(selectUsersData);
+  const usersLoading = useSelector(selectUsersLoading);
   const { setIsAuthenticated } = useContext(AuthContext);
   const ref = useRef(null);
   const navigate = useNavigate();
-  const { data, isFetching } = useQuery({
-    queryKey: ["userInfo"],
-    queryFn: getUsers,
-    refetchOnReconnect: false,
-    refetchOnWindowFocus: false,
-  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const emailExist = data?.some((item) => item.email === ref.current.value);
-    if (!emailExist) {
+    const inputEmail = ref.current.value;
+    if (inputEmail === "") {
+      setInputError("Field cannot be empty");
+      return;
+    }
+    setInputError("");
+    const userExist = usersData?.find(
+      (item) => item.email === inputEmail.toLowerCase(),
+    );
+    if (!userExist) {
       setIsAuthenticated(false);
       return navigate("/register", { replace: true });
     }
+    localStorage.setItem("email", userExist.email.toLowerCase());
     setIsAuthenticated(true);
     return navigate("/", { replace: true });
   };
-  return isFetching ? (
+  return usersLoading ? (
     <HashLoader style={{ margin: "0 auto" }} />
   ) : (
     <div className={styles.container}>
@@ -39,6 +48,7 @@ const LoginPage = () => {
         <button className={styles.submitBtn} type="submit">
           Login
         </button>
+        <p>{inputError}</p>
       </form>
     </div>
   );

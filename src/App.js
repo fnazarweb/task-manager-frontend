@@ -1,8 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { HashLoader } from "react-spinners";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { AuthContext } from "./context/AuthContext";
+import { useDispatch } from "react-redux";
+import { getUsersAsync } from "./redux/users/usersActions";
 
 const Layout = lazy(() => import("./Layout/Layout"));
 const HomePage = lazy(() => import("./pages/Home/HomePage"));
@@ -15,7 +17,15 @@ const RegisterPage = lazy(() => import("./pages/Register/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/Login/LoginPage"));
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const email = localStorage.getItem("email");
+
+  const [isAuthenticated, setIsAuthenticated] = useState(!!email);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUsersAsync());
+  }, [dispatch]);
+
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
       <Suspense fallback={<HashLoader style={{ margin: "0 auto" }} />}>

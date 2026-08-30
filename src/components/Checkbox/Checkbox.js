@@ -1,5 +1,3 @@
-import styles from "./Checkbox.module.css";
-
 const Checkbox = ({ id, checked, handleChangeCheckbox }) => {
   return (
     <input

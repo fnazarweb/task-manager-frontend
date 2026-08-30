@@ -37,3 +37,12 @@
   font-size: 19px;
   line-height: 1.7;
 }
+
+.content code {
+  padding: 3px 7px;
+  border-radius: 6px;
+  background-color: #eee4dc;
+  color: #6b4f3f;
+  font-family: monospace;
+  font-size: 0.9em;
+}
