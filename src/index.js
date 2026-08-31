@@ -11,7 +11,7 @@ import "./index.css";
 
 export const queryClient = new QueryClient();
 
-axios.defaults.baseURL = "http://localhost:3030/";
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
