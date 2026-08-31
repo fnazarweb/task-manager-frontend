@@ -13,7 +13,6 @@ const NotFoundPage = lazy(() => import("./pages/NotFound/NotFoundPage"));
 const EditItemPage = lazy(() => import("./pages/EditItem/EditItemPage"));
 const TodoListPage = lazy(() => import("./pages/List/TodoListPage"));
 const ErrorPage = lazy(() => import("./pages/Error/ErrorPage"));
-const RegisterPage = lazy(() => import("./pages/Register/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/Login/LoginPage"));
 
 function App() {
@@ -56,8 +55,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-
-            <Route path="/register" element={<RegisterPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/error" element={<ErrorPage />} />
             <Route path="/404" element={<NotFoundPage />} />

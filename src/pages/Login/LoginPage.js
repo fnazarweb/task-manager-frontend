@@ -24,16 +24,17 @@ const LoginPage = () => {
       setInputError("Field cannot be empty");
       return;
     }
-    setInputError("");
     const userExist = usersData?.find(
       (item) => item.email === inputEmail.toLowerCase(),
     );
     if (!userExist) {
       setIsAuthenticated(false);
-      return navigate("/register", { replace: true });
+      setInputError("Please, type this email: demo@example.com");
+      return;
     }
     localStorage.setItem("email", userExist.email.toLowerCase());
     setIsAuthenticated(true);
+    setInputError("");
     return navigate("/", { replace: true });
   };
   return usersLoading ? (
