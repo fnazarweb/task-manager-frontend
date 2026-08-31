@@ -24,7 +24,7 @@ const RegisterPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = ref.current.value;
-    const emailExist = usersData?.some(
+    const userExist = usersData?.some(
       (item) => item.email === email.toLowerCase(),
     );
     if (email === "") {
@@ -32,7 +32,7 @@ const RegisterPage = () => {
       return;
     }
 
-    if (emailExist) {
+    if (userExist) {
       setInputError("This email already exist");
       return;
     }
