@@ -6,7 +6,6 @@
   background-color: #d4c0a8;
   border-bottom: 1px solid #c2a988;
   color: #3d2f2a;
-  font-family: cursive;
   box-shadow: 0 2px 8px rgba(61, 47, 42, 0.08);
 }
 
@@ -62,7 +61,6 @@
 .text {
   margin: 0;
   color: #3d2f2a;
-  font-family: cursive;
   font-size: 13px;
   font-weight: lighter;
   text-align: center;

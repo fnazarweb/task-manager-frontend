@@ -1,3 +1,17 @@
+@font-face {
+  font-family: "Comic Relief";
+  src: url("./fonts/comic-relief-400.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Comic Relief";
+  src: url("./fonts/comic-relief-700.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -6,7 +20,8 @@ body {
   margin: 0;
   background-color: #fffaf3;
   color: #3d2f2a;
-  font-family: cursive;
+  font-family: "Comic Relief";
+  font-weight: 400;
 }
 
 a {
