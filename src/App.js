@@ -15,9 +15,9 @@ const RegisterPage = lazy(() => import("./pages/Register/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/Login/LoginPage"));
 
 function App() {
-  const email = localStorage.getItem("email");
+  const token = localStorage.getItem("token");
 
-  const [isAuthenticated, setIsAuthenticated] = useState(!!email);
+  const [isAuthenticated, setIsAuthenticated] = useState(!!token);
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>

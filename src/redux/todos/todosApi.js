@@ -6,13 +6,10 @@ export const todosApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_URL,
     prepareHeaders: (headers) => {
-      const email = localStorage.getItem("email");
-      const password = localStorage.getItem("password");
+      const token = localStorage.getItem("token");
 
-      if (email && password) {
-        const credentials = btoa(`${email}:${password}`);
-
-        headers.set("Authorization", `Basic ${credentials}`);
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
       }
 
       return headers;

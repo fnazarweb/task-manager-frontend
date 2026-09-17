@@ -82,8 +82,7 @@ const TodoListPage = () => {
           )}
           <TodoForm mode="create" />
           {isFetching && (
-            <div>
-              <span>Updating</span>
+            <div className={styles.updating}>
               <BeatLoader size={10} />
             </div>
           )}
@@ -92,7 +91,7 @@ const TodoListPage = () => {
           )}
           <ul style={{ padding: 0 }}>
             {filteredTodos?.map((todo) => (
-              <li key={todo.id} className={styles.listRow}>
+              <li key={todo._id} className={styles.listRow}>
                 <Item
                   isDeletingTodo={isDeletingTodo}
                   todo={todo}

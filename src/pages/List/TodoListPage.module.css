@@ -92,3 +92,11 @@
     transform: translateY(0);
   }
 }
+
+.updating {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  margin-bottom: 15px;
+}

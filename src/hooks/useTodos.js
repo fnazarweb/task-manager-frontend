@@ -36,8 +36,6 @@ export const useTodos = () => {
 
   const onEditHandler = (todo) => setEditingTodo(todo);
 
-  const modalClose = () => setEditingTodo(null);
-
   const handleChangeOption = (e) => setSelectedOption(e.target.value);
 
   const filteredTodos = todos
@@ -57,7 +55,6 @@ export const useTodos = () => {
     onDeleteHandler,
     editingTodo,
     onEditHandler,
-    modalClose,
     setIsFormOpen,
     isFormOpen,
     isTodosLoading,

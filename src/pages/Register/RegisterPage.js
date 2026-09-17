@@ -11,7 +11,6 @@ import {
   isValidPassword,
 } from "../../utils/authValidation";
 
-import { HashLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -53,10 +52,9 @@ const RegisterPage = () => {
     };
 
     try {
-      await registerUser(payload);
+      const data = await registerUser(payload);
 
-      localStorage.setItem("email", email.toLowerCase());
-      localStorage.setItem("password", password);
+      localStorage.setItem("token", data.token);
 
       setIsAuthenticated(true);
       navigate("/");
@@ -65,9 +63,6 @@ const RegisterPage = () => {
     }
   };
 
-  //      usersLoading ? (
-  //     <HashLoader style={{ margin: "0 auto" }} />
-  //   ) :
   return (
     <div className={styles.container}>
       <form className={styles.form} onSubmit={handleSubmit}>
@@ -80,6 +75,7 @@ const RegisterPage = () => {
           id="email"
           name="email"
           type="email"
+          autoComplete="username"
         />
         <label className={styles.label} htmlFor="password">
           Password
@@ -92,6 +88,7 @@ const RegisterPage = () => {
             id="password"
             name="password"
             type={showPassword ? "text" : "password"}
+            autoComplete="new-password"
           />
 
           <button

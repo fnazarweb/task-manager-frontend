@@ -1,13 +1,11 @@
 import axios from "axios";
 
 export const getSingleTodo = async (id) => {
-  const email = localStorage.getItem("email");
-  const password = localStorage.getItem("password");
-  const credentials = btoa(`${email}:${password}`);
+  const token = localStorage.getItem("token");
 
   const todo = await axios.get(`task/${id}`, {
     headers: {
-      Authorization: `Basic ${credentials}`,
+      Authorization: `Bearer ${token}`,
     },
   });
 

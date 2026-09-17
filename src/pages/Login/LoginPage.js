@@ -5,7 +5,6 @@ import { AuthContext } from "../../context/AuthContext";
 import { isNotEmpty } from "../../utils/authValidation";
 import { loginUser } from "../../api/api";
 
-import { HashLoader } from "react-spinners";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
@@ -28,9 +27,8 @@ const LoginPage = () => {
 
     setInputError("");
     try {
-      await loginUser({ email: email.toLowerCase(), password });
-      localStorage.setItem("email", email.toLowerCase());
-      localStorage.setItem("password", password);
+      const data = await loginUser({ email: email.toLowerCase(), password });
+      localStorage.setItem("token", data.token);
       setIsAuthenticated(true);
       setInputError("");
       navigate("/", { replace: true });
@@ -51,6 +49,7 @@ const LoginPage = () => {
           id="email"
           name="email"
           type="email"
+          autoComplete="username"
         />
         <label className={styles.label} htmlFor="password">
           Password
@@ -62,6 +61,7 @@ const LoginPage = () => {
             id="password"
             name="password"
             type={showPassword ? "text" : "password"}
+            autoComplete="current-password"
           />
 
           <button
