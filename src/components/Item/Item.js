@@ -20,7 +20,7 @@ const Item = ({ todo, onDelete, onEdit, isDeletingTodo }) => {
           className={styles.editLink}
           disabled={isDeletingTodo}
           onClick={onEdit}
-          to={`${todo.id}`}
+          to={`${todo._id}`}
         >
           Edit
         </Link>

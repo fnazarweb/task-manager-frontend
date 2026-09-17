@@ -15,6 +15,7 @@ const Layout = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("email");
+    localStorage.removeItem("password");
     setIsAuthenticated(false);
   };
 

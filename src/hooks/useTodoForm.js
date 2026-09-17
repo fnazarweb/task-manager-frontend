@@ -83,11 +83,10 @@ export const useTodoForm = ({ initialData }) => {
     e.preventDefault();
     try {
       await updateTodo({
-        id: initialData.id,
+        id: initialData._id,
         title: value.inputTitle,
         description: value.inputDesc,
         checked: value.checked,
-        creationDate: new Date().toLocaleString(),
       }).unwrap();
       navigate("/todoList");
     } catch (error) {

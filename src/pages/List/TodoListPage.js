@@ -96,7 +96,7 @@ const TodoListPage = () => {
                 <Item
                   isDeletingTodo={isDeletingTodo}
                   todo={todo}
-                  onDelete={() => onDeleteHandler(todo.id)}
+                  onDelete={() => onDeleteHandler(todo._id)}
                   onEdit={() => {
                     onEditHandler(todo);
                   }}

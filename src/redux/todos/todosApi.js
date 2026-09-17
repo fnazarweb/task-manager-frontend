@@ -3,15 +3,29 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const todosApi = createApi({
   reducerPath: "todosApi",
   tagTypes: ["Todos"],
-  baseQuery: fetchBaseQuery({ baseUrl: process.env.REACT_APP_API_URL }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: process.env.REACT_APP_API_URL,
+    prepareHeaders: (headers) => {
+      const email = localStorage.getItem("email");
+      const password = localStorage.getItem("password");
+
+      if (email && password) {
+        const credentials = btoa(`${email}:${password}`);
+
+        headers.set("Authorization", `Basic ${credentials}`);
+      }
+
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     getTodos: builder.query({
-      query: () => "todos",
+      query: () => "task",
       providesTags: ["Todos"],
     }),
     addTodo: builder.mutation({
       query: (payload) => ({
-        url: "todos",
+        url: "task",
         method: "POST",
         body: payload,
       }),
@@ -19,7 +33,7 @@ export const todosApi = createApi({
     }),
     updateTodo: builder.mutation({
       query: (payload) => ({
-        url: `todos/${payload.id}`,
+        url: `task/${payload.id}`,
         method: "PUT",
         body: payload,
       }),
@@ -27,7 +41,7 @@ export const todosApi = createApi({
     }),
     deleteTodo: builder.mutation({
       query: (id) => ({
-        url: `todos/${id}`,
+        url: `task/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Todos"],

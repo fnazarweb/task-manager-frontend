@@ -1,16 +1,25 @@
 import axios from "axios";
 
 export const getSingleTodo = async (id) => {
-  const todo = await axios.get(`todos/${id}`);
+  const email = localStorage.getItem("email");
+  const password = localStorage.getItem("password");
+  const credentials = btoa(`${email}:${password}`);
+
+  const todo = await axios.get(`task/${id}`, {
+    headers: {
+      Authorization: `Basic ${credentials}`,
+    },
+  });
+
   return todo.data;
 };
 
-export const getUsers = async () => {
-  const users = await axios.get("auth");
-  return users.data;
+export const registerUser = async (payload) => {
+  const response = await axios.post("auth/register", payload);
+  return response.data;
 };
 
-export const addUser = async (payload) => {
-  const user = await axios.post("auth", payload);
-  return user.data;
+export const loginUser = async (payload) => {
+  const response = await axios.post("auth/login", payload);
+  return response.data;
 };
