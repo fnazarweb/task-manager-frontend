@@ -4,6 +4,7 @@ import styles from "./Layout.module.css";
 import classNames from "classnames";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 const Layout = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
@@ -13,9 +14,13 @@ const Layout = () => {
     });
   };
 
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    setIsAuthenticated(false);
+  const handleLogout = async () => {
+    try {
+      await axios.post("/auth/logout/");
+      setIsAuthenticated(false);
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

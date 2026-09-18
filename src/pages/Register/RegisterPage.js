@@ -52,14 +52,15 @@ const RegisterPage = () => {
     };
 
     try {
-      const data = await registerUser(payload);
-
-      localStorage.setItem("token", data.token);
-
+      await registerUser(payload);
       setIsAuthenticated(true);
       navigate("/");
     } catch (error) {
-      setInputError("Registration failed");
+      if (error.response?.data?.message?.includes("duplicate key")) {
+        setInputError("User with this email already exists");
+      } else {
+        setInputError("Registration failed: Server is unavailable");
+      }
     }
   };
 
@@ -104,6 +105,16 @@ const RegisterPage = () => {
         <button className={styles.submitBtn} type="submit">
           Register
         </button>
+        <p className={styles.loginText}>
+          Already have an account?{" "}
+          <button
+            type="button"
+            className={styles.loginBtn}
+            onClick={() => navigate("/login")}
+          >
+            Login
+          </button>
+        </p>
       </form>
     </div>
   );

@@ -22,8 +22,13 @@
   display: flex;
   align-items: center;
   width: 100%;
-  margin-bottom: 22px;
+  min-height: 42px;
+  margin-bottom: 30px;
   gap: 20px;
+}
+
+.field:last-of-type {
+  margin-bottom: 0;
 }
 
 .labelWrapper {
@@ -70,9 +75,7 @@
 }
 
 .error {
-  min-height: 18px;
-  margin: 0 0 5px 160px;
-
+  margin: 0 0 4px 160px;
   color: #b85c5c;
   font-size: 14px;
   text-align: left;
@@ -117,7 +120,7 @@
 .buttonWrapper {
   display: flex;
   justify-content: center;
-  margin-top: 10px;
+  margin-top: 0;
 }
 
 @keyframes appearance {

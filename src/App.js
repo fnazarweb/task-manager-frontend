@@ -1,5 +1,6 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { lazy, Suspense, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
+import axios from "axios";
 import { HashLoader } from "react-spinners";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import { AuthContext } from "./context/AuthContext";
@@ -15,10 +16,26 @@ const RegisterPage = lazy(() => import("./pages/Register/RegisterPage"));
 const LoginPage = lazy(() => import("./pages/Login/LoginPage"));
 
 function App() {
-  const token = localStorage.getItem("token");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthLoading, setIsAuthLoading] = useState(true);
 
-  const [isAuthenticated, setIsAuthenticated] = useState(!!token);
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        await axios.get("/auth/me");
+        setIsAuthenticated(true);
+      } catch (e) {
+        setIsAuthenticated(false);
+      } finally {
+        setIsAuthLoading(false);
+      }
+    };
+    checkAuth();
+  }, []);
 
+  if (isAuthLoading) {
+    return <HashLoader style={{ margin: "0 auto" }} />;
+  }
   return (
     <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated }}>
       <Suspense fallback={<HashLoader style={{ margin: "0 auto" }} />}>

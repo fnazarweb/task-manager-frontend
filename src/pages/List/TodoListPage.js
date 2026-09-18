@@ -67,7 +67,7 @@ const TodoListPage = () => {
         </div>
       ) : (
         <>
-          {todos.length !== 0 && (
+          {todos?.length !== 0 && (
             <select
               className={styles.select}
               value={selectedOption}

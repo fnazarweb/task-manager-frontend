@@ -27,14 +27,17 @@ const LoginPage = () => {
 
     setInputError("");
     try {
-      const data = await loginUser({ email: email.toLowerCase(), password });
-      localStorage.setItem("token", data.token);
+      await loginUser({ email: email.toLowerCase(), password });
       setIsAuthenticated(true);
       setInputError("");
       navigate("/", { replace: true });
     } catch (e) {
       setIsAuthenticated(false);
-      setInputError("Invalid email or password");
+      if (e.response?.status === 401) {
+        setInputError("Invalid email or password");
+      } else {
+        setInputError("Server is unavailable");
+      }
     }
   };
   return (

@@ -12,6 +12,7 @@ import "./index.css";
 export const queryClient = new QueryClient();
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
+axios.defaults.withCredentials = true;
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
