@@ -33,10 +33,10 @@ const LoginPage = () => {
       navigate("/", { replace: true });
     } catch (e) {
       setIsAuthenticated(false);
-      if (e.response?.status === 401) {
+      if (e.response?.status === 401 || e.response?.status === 400) {
         setInputError("Invalid email or password");
       } else {
-        setInputError("Server is unavailable");
+        setInputError("Login failed");
       }
     }
   };

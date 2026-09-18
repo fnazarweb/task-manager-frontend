@@ -59,8 +59,18 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/login" element={<LoginPage />} />
+            <Route
+              path="/register"
+              element={
+                isAuthenticated ? <Navigate to="/" replace /> : <RegisterPage />
+              }
+            />
+            <Route
+              path="/login"
+              element={
+                isAuthenticated ? <Navigate to="/" replace /> : <LoginPage />
+              }
+            />
             <Route path="/error" element={<ErrorPage />} />
             <Route path="/404" element={<NotFoundPage />} />
             <Route path="*" element={<Navigate to="/404" replace />} />

@@ -5,9 +5,12 @@ import classNames from "classnames";
 import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { todosApi } from "../redux/todos/todosApi";
 
 const Layout = () => {
   const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const getActiveLink = (isActive) => {
     return classNames(styles.navLink, {
       [styles.activeLink]: isActive,
@@ -17,6 +20,7 @@ const Layout = () => {
   const handleLogout = async () => {
     try {
       await axios.post("/auth/logout/");
+      dispatch(todosApi.util.resetApiState());
       setIsAuthenticated(false);
     } catch (e) {
       console.error(e);
