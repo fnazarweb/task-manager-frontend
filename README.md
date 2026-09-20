@@ -22,8 +22,3 @@ A Todo List app with user authentication — register, login, and manage your ow
 
 My name is Nazar, and I am a junior full-stack developer with experience in both frontend and backend development. I created this project as part of my full-stack learning journey, practicing React, state management, routing, forms, and REST API integration.
 
----
-
-## Getting Started with Create React App
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
